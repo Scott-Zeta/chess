@@ -13,8 +13,13 @@ export class Pawn extends Piece {
 
   constructor(private pieceColor: Color) {
     super(pieceColor);
+    if (pieceColor === Color.Black) this.setBlackPawnDirections();
     this._FENChar =
       pieceColor === Color.White ? FENChar.WhitePawn : FENChar.BlackPawn;
+  }
+
+  private setBlackPawnDirections(): void {
+    this._directions = this.directions.map(({ x, y }) => ({ x: -1 * x, y }));
   }
 
   public get hasMoved(): boolean {
@@ -28,5 +33,6 @@ export class Pawn extends Piece {
       { x: 1, y: 1 },
       { x: 1, y: -1 },
     ];
+    if (this.pieceColor === Color.Black) this.setBlackPawnDirections();
   }
 }
